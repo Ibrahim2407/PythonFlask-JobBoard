@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template
+from flask import Flask, render_template,g
 
 PATH='db/jobs.sqlite'
 
@@ -13,7 +13,7 @@ def open_connection():
     return connection
 
 def execute_sql(sql,values=(),commit=False,single=False):
-    ConnectionAbortedError=open_connection
+    connection=open_connection()
     cursor=connection.execute(sql,values)
     if(commit==True):
         results=connection.commit()
