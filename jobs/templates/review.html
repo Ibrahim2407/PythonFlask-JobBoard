@@ -1,0 +1,63 @@
+{% block content %}
+  <h1>New Review</h1>
+  <form method="post">
+    <div class="field">
+      <label class="label">Job Title</label>
+      <div class="control">
+        <input class="input" type="text" name="title" id="title" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Rating</label>
+      <div class="control">
+        <div class="select">
+          <select name="rating" id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Review</label>
+      <div class="control">
+        <textarea class="textarea" name="review" id="review" required></textarea>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Employment Status</label>
+      <div class="control">
+        <div class="select">
+          <select name="status" id="status">
+            <option value="former">Former</option>
+            <option value="current">Current</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <a href="{{ url_for('employer',employer_id=employer_id)}}" class="button is-text">Cancel</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+
+
+
+if request.method=='POST':
+        review=request.form['review']
+        rating=request.form['rating']
+        title=request.form['title']
+        status=request.form['status']
+        date =datetime.datetime.now().strftime("%m%d%Y")
+    execute_sql('INSERT INTO review (review, rating, title, date, status, employer_id) VALUES (?, ?, ?, ?, ?, ?)',(review,rating,time,
+    date,status,employer_id),commit=True)
+        return redirect(url_for('employer',employer_id=employer_id))
